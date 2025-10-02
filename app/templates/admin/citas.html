@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block title %}Panel de Citas | FISIOLIFE{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Citas agendadas</h2>
+
+{% if citas %}
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>Paciente</th>
+                    <th>Teléfono</th>
+                    <th>Email</th>
+                    <th>Servicio</th>
+                    <th>Fecha y hora</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for cita in citas %}
+                <tr>
+                    <td>{{ cita.nombre }}</td>
+                    <td>{{ cita.telefono }}</td>
+                    <td>{{ cita.email }}</td>
+                    <td>{{ cita.servicio.nombre }}</td>
+                    <td>{{ cita.fecha_hora.strftime('%d/%m/%Y %H:%M') }}</td>
+                    <td>
+                        <span class="badge bg-{{ 'secondary' if cita.estado == 'pendiente' else 'success' if cita.estado == 'confirmada' else 'dark' }}">
+                            {{ cita.estado.capitalize() }}
+                        </span>
+                    </td>
+                    <td>
+                        <div class="dropdown">
+                            <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Cambiar estado
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="{{ url_for('cambiar_estado_cita', cita_id=cita.id, nuevo_estado='pendiente') }}">Pendiente</a></li>
+                                <li><a class="dropdown-item" href="{{ url_for('cambiar_estado_cita', cita_id=cita.id, nuevo_estado='confirmada') }}">Confirmada</a></li>
+                                <li><a class="dropdown-item" href="{{ url_for('cambiar_estado_cita', cita_id=cita.id, nuevo_estado='completada') }}">Completada</a></li>
+                                <li><a class="dropdown-item" href="{{ url_for('cambiar_estado_cita', cita_id=cita.id, nuevo_estado='cancelada') }}">Cancelada</a></li>
+                            </ul>
+                        </div>
+                        <a href="#" class="btn btn-sm btn-outline-danger disabled">Eliminar</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% else %}
+    <p>No hay citas registradas.</p>
+{% endif %}
+{% endblock %}

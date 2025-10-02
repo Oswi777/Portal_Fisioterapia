@@ -1,0 +1,13 @@
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f9f9f9;
+}
+.btn-fisiolife {
+    background-color: #7c4dff;  /* un lila profesional */
+    color: white;
+    border: none;
+}
+
+.btn-fisiolife:hover {
+    background-color: #6933cc;
+}

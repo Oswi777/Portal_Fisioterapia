@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block title %}Agendar Cita | FISIOLIFE{% endblock %}
+
+{% block content %}
+<div class="container mt-5" style="max-width: 600px;">
+    <h2 class="mb-4">Agendar Cita</h2>
+
+    {% if mensaje %}
+        <div class="alert alert-success">{{ mensaje }}</div>
+    {% endif %}
+
+    <form method="POST">
+        <div class="mb-3">
+            <label>Nombre:</label>
+            <input type="text" name="nombre" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label>Correo:</label>
+            <input type="email" name="email" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label>Teléfono:</label>
+            <input type="text" name="telefono" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="fecha_hora">Fecha y hora:</label>
+            <input type="datetime-local" name="fecha_hora" id="fecha_hora" class="form-control" required step="3600">
+        </div>
+        <div class="mb-3">
+            <label>Servicio:</label>
+            <select name="servicio_id" class="form-select" required>
+                <option value="">Seleccione un servicio</option>
+                {% for servicio in servicios %}
+                    <option value="{{ servicio.id }}">{{ servicio.nombre }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col-md-6">
+                <a href="{{ url_for('index') }}" class="btn btn-secondary w-100">Inicio</a>
+            </div>
+            <div class="col-md-6">
+                <button type="submit" class="btn btn-primary w-100">Agendar Cita</button>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}

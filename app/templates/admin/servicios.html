@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}Servicios | Panel Admin | FISIOLIFE{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">Servicios</h2>
+
+    <a href="{{ url_for('agregar_servicio') }}" class="btn btn-success mb-3">Agregar Servicio</a>
+
+    {% if servicios %}
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Precio</th>
+                <th>Activo</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for servicio in servicios %}
+            <tr>
+                <td>{{ servicio.id }}</td>
+                <td>{{ servicio.nombre }}</td>
+                <td>{{ servicio.descripcion }}</td>
+                <td>${{ servicio.precio }}</td>
+                <td>
+                    {% if servicio.activo %}
+                        <span class="badge bg-success">Sí</span>
+                    {% else %}
+                        <span class="badge bg-secondary">No</span>
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="{{ url_for('editar_servicio', id=servicio.id) }}" class="btn btn-sm btn-warning">Editar</a>
+                    <a href="{{ url_for('eliminar_servicio', id=servicio.id) }}" class="btn btn-sm btn-danger" onclick="return confirm('¿Eliminar este servicio?')">Eliminar</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <p>No hay servicios registrados aún.</p>
+    {% endif %}
+
+    <a href="{{ url_for('admin_dashboard') }}" class="btn btn-secondary mt-3">Volver al Panel</a>
+</div>
+{% endblock %}

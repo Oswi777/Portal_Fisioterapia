@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Panel de Administración | FISIOLIFE{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Bienvenido, {{ session.usuario_nombre }}</h2>
+    <p class="mb-4">Este es el panel de control de FISIOLIFE.</p>
+
+    <div class="row">
+        <div class="col-md-6">
+            <a href="{{ url_for('admin_citas') }}" class="btn btn-outline-primary w-100 mb-3">Ver Citas</a>
+        </div>
+        <div class="col-md-6">
+            <a href="{{ url_for('admin_servicios') }}" class="btn btn-outline-success w-100 mb-3">Gestionar Servicios</a>
+        </div>
+    </div>
+
+    <a href="{{ url_for('logout') }}" class="btn btn-danger">Cerrar sesión</a>
+</div>
+{% endblock %}

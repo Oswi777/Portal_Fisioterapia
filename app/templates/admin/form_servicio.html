@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}{{ 'Editar' if modo == 'editar' else 'Agregar' }} Servicio | Admin{% endblock %}
+
+{% block content %}
+<div class="container mt-5" style="max-width: 600px;">
+    <h2>{{ 'Editar' if modo == 'editar' else 'Agregar' }} Servicio</h2>
+
+    <form method="POST">
+        <div class="mb-3">
+            <label>Nombre:</label>
+            <input type="text" name="nombre" class="form-control" required value="{{ servicio.nombre if servicio else '' }}">
+        </div>
+        <div class="mb-3">
+            <label>Descripción:</label>
+            <textarea name="descripcion" class="form-control" rows="3">{{ servicio.descripcion if servicio else '' }}</textarea>
+        </div>
+        <div class="mb-3">
+            <label>Precio:</label>
+            <input type="number" name="precio" step="0.01" class="form-control" required value="{{ servicio.precio if servicio else '' }}">
+        </div>
+        <div class="form-check mb-3">
+            <input class="form-check-input" type="checkbox" name="activo" id="activo" {% if servicio and servicio.activo %}checked{% endif %}>
+            <label class="form-check-label" for="activo">Activo</label>
+        </div>
+        <button type="submit" class="btn btn-primary">{{ 'Actualizar' if modo == 'editar' else 'Agregar' }}</button>
+        <a href="{{ url_for('admin_servicios') }}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+{% endblock %}

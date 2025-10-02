@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Inicio | FISIOLIFE{% endblock %}
+
+{% block content %}
+<h2 class="text-center">Bienvenido a FISIOLIFE</h2>
+<p class="text-center">Tu bienestar es nuestra prioridad.</p>
+<div class="text-center mt-4">
+    <a href="{{ url_for('agendar_cita') }}" class="btn btn-primary btn-lg px-4">Agendar cita</a>
+</div>
+{% endblock %}
